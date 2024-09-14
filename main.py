@@ -23,7 +23,7 @@ def create_output_folders(pdf_files, output_base_folder):
     return output_folders
 
 # Function to convert PDF to JPG in a separate thread
-def convert_pdf_to_jpg(pdf_files, output_folders, poppler_path, progress_callback):
+def convert_pdf_to_jpg(pdf_files, output_folders, poppler_path, progress_callback, output_base_folder):
     try:
         total_files = len(pdf_files)
         start_time = time.time()
@@ -111,7 +111,7 @@ def start_conversion():
     root.update_idletasks()
 
     # Convert PDFs to JPGs in a separate thread
-    threading.Thread(target=convert_pdf_to_jpg, args=(pdf_files, output_folders, poppler_path, update_progress)).start()
+    threading.Thread(target=convert_pdf_to_jpg, args=(pdf_files, output_folders, poppler_path, update_progress, output_base_folder)).start()
 
 def browse_pdf_path():
     pdf_files = filedialog.askopenfilenames(title="Select PDF Files", filetypes=[("PDF files", "*.pdf")])
@@ -184,7 +184,7 @@ def create_gui():
     root.mainloop()
 
 # Define Poppler path
-poppler_path = r'C:\poppler\bin'  # Adjust this to your actual Poppler path
+poppler_path = r'C:\poppler-24.07.0\Library\bin'  # Adjust this to your actual Poppler path
 
 # Run the GUI
 if __name__ == "__main__":
